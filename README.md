@@ -10,13 +10,17 @@
 ## Envoirenment Configuration
 
 LOG_CHANNEL=single
+
 QUEUE_CONNECTION=database
-MASTER_FEED_URL=https://crawl.obsidianmedia.dk/masterfeed.php
+
+MASTER_FEED_URL=https://crawl.**********/masterfeed.php
 
 ## Commands To be used
 
 php artisan migrate:fresh
+
 php artisan schedule:work
+
 php artisan queue:work
 
 ## About Laravel
