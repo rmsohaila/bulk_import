@@ -23,16 +23,10 @@ use Throwable;
 
 class MasterDataFeedController extends Controller
 {
-    private FeedReader $feedReader;
-    public function __construct(FeedReader $feedReader)
+    public function __construct()
     {
-        $this->feedReader = $feedReader;
     }
 
-    public function xml()
-    {
-        dd('done');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +36,7 @@ class MasterDataFeedController extends Controller
     {
         $result = MasterDataFeed::get();
         $result = new ListCollection($result);
-        return APIResponse::json($result);
+        return view('', ['data' => new ListCollection($result)]);
     }
 
     /**
@@ -54,7 +48,7 @@ class MasterDataFeedController extends Controller
     {
         $data = MasterDataFeed::create($request->validated());
 
-        return APIResponse::json($data);
+        return view('', ['data' => new ShowResource($data)]);
     }
 
     /**
@@ -67,11 +61,9 @@ class MasterDataFeedController extends Controller
     {
         $data = MasterDataFeed::find($id);
 
-        if (!$data) return APIResponse::json("Not Found", Response::HTTP_NOT_FOUND);
+        if (!$data) return redirect()->route('notfound');
 
-        return APIResponse::json(new MetaResource($data));
-
-        return APIResponse::json(new ShowResource($data));
+        return view('', ['data' => new ShowResource($data)]);
     }
 
     /**
@@ -85,13 +77,13 @@ class MasterDataFeedController extends Controller
     {
         $data = MasterDataFeed::find($id);
 
-        if (!$data) return APIResponse::json("Not Found", Response::HTTP_NOT_FOUND);
+        if (!$data) return redirect()->route('notfound');
 
         $data[MasterDataFeed::URL] = $request->get(MasterDataFeed::URL);
 
         $data->save();
 
-        return $data;
+        return view('', ['data' => new ShowResource($data)]);
     }
 
     /**

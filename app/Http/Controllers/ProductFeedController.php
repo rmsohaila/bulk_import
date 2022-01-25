@@ -53,9 +53,8 @@ class ProductFeedController extends Controller
         // Apply paging if any
         if ($request->hasAny(['page', 'size'])) {
             $result = (new ListCollection($products->paginate($request->size ?? 10)))->withPaginate();
-            return APIResponse::json($result);
+            return view('', ['data' => $result]);
         }
-
-        return APIResponse::json(new ListCollection($products->get()));
+        return view('', ['data' => new ListCollection($products->get())]);
     }
 }
