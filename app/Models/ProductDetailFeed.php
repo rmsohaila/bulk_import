@@ -13,42 +13,97 @@ class ProductDetailFeed extends Model
     const ID = 'id';
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
+
+    /**
+     * Foriegn Key to MasterDataFeed ID(PK)
+     */
     const FEED_ID = "feed_id";
+
+    /**
+     * CATEGORY NAME
+     */
     const KATEGORINAVN = "kategorinavn";
+
+    /**
+     * DEALER
+     */
     const FORHANDLER = "forhandler";
+
+    /**
+     * BRAND
+     */
     const BRAND = "brand";
+
+    /**
+     * PRODUCT NAME
+     */
     const PRODUKTNAVN = "produktnavn";
+
+    /**
+     * PRODUCT ID
+     */
     const PRODUKTID = "produktid";
+
+    /**
+     * EAN
+     */
     const EAN = "ean";
+
+    /**
+     * DESCRIPTION
+     */
     const BESKRIVELSE = "beskrivelse";
+
+    /**
+     * NEW PRICE
+     */
     const NYPRIS = "nypris";
+
+    /**
+     * OLD PRICE
+     */
     const GLPRIS = "glpris";
+
+    /**
+     * STOCK NUMBER
+     */
     const LAGERANTAL = "lagerantal";
+
+    /**
+     * DELIVERY TIME
+     */
     const LEVERINGSTID = "leveringstid";
+
+    /**
+     * IMAGE URL
+     */
     const BILLEDURL = "billedurl";
+
+    /**
+     * PRODUCT URL
+     */
     const VAREURL = "vareurl";
+
+    /**
+     * SHIPPING
+     */
     const FRAGTOMK = "fragtomk";
+
+    /**
+     * COLOR
+     */
+    const COLOR = "color";
+
+    /**
+     * SIZE
+     */
+    const SIZE = "size";
 
     protected $table = DBTable::PRODUCT_DETAIL_FEEDS;
 
     protected $dateFormat = '';
 
-    protected $fillable = [
-        self::FEED_ID,
-        self::KATEGORINAVN,
-        self::FORHANDLER,
-        self::BRAND,
-        self::PRODUKTNAVN,
-        self::PRODUKTID,
-        self::EAN,
-        self::BESKRIVELSE,
-        self::NYPRIS,
-        self::GLPRIS,
-        self::LAGERANTAL,
-        self::LEVERINGSTID,
-        self::BILLEDURL,
-        self::VAREURL,
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         self::CREATED_AT  => 'datetime',
@@ -60,6 +115,6 @@ class ProductDetailFeed extends Model
      */
     public function masterDataFeed()
     {
-        return $this->belongsTo(MasterDataFeed::class, 'feed_id');
+        return $this->belongsTo(MasterDataFeed::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MasterDataFeed;
 use Illuminate\Database\Seeder;
 
 class MasterDataFeedSeeder extends Seeder
@@ -13,6 +14,8 @@ class MasterDataFeedSeeder extends Seeder
      */
     public function run()
     {
-        //
+        MasterDataFeed::factory()
+            ->count(20)
+            ->create();
     }
 }

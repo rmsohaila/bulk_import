@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProductDetailFeed;
 use Illuminate\Database\Seeder;
 
 class ProductDetailFeedSeeder extends Seeder
@@ -13,6 +14,8 @@ class ProductDetailFeedSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ProductDetailFeed::factory()
+            ->count(10)
+            ->create();
     }
 }

@@ -7,12 +7,32 @@ use App\Http\Requests\MasterDataFeed\UpdateRequest;
 use App\Http\Resources\MasterDataFeed\ListCollection;
 use App\Http\Resources\MasterDataFeed\MetaResource;
 use App\Http\Resources\MasterDataFeed\ShowResource;
+use App\Jobs\InsertMasterDataFeedJob;
+use App\Jobs\MapProductDetailFeedJob;
 use App\Models\MasterDataFeed;
 use App\Shared\APIResponse;
 use Illuminate\Http\Response;
 
+use App\Services\FeedReader;
+use App\Shared\DBTable;
+use Illuminate\Bus\Batch;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Throwable;
+
 class MasterDataFeedController extends Controller
 {
+    private FeedReader $feedReader;
+    public function __construct(FeedReader $feedReader)
+    {
+        $this->feedReader = $feedReader;
+    }
+
+    public function xml()
+    {
+        dd('done');
+    }
     /**
      * Display a listing of the resource.
      *

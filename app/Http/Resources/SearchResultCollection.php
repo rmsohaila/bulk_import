@@ -1,19 +1,11 @@
 <?php
 
-namespace App\Http\Resources\ProductDetailFeed;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-/**
- * Class ListCollection
- * To be used in Master Feed Table Listing
- * @package App\Http\Resources\ProductDetailFeed
- * @mixin ProductDetailFeed\ListResource
- */
-class ListCollection extends ResourceCollection
+class SearchResultCollection extends ResourceCollection
 {
-    public $collects = 'App\Http\Resources\ProductDetailFeed\ListResource';
-
     /**
      * Transform the resource collection into an array.
      *

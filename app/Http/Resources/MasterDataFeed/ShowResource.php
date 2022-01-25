@@ -4,6 +4,12 @@ namespace App\Http\Resources\MasterDataFeed;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Class ListResource
+ * To be used for showing a single record
+ * @package App\Http\Resources\MasterDataFeed
+ * mixin MasterDataFeed
+ */
 class ShowResource extends JsonResource
 {
     /**

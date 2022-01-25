@@ -1,11 +1,19 @@
 <?php
 
-class XMLReader
+namespace App\Services;
+
+class FeedReader
 {
-    public function read($url): array
+    public function __construct()
+    {
+    }
+
+    public function read($url)
     {
         $xml = simplexml_load_file($url);
 
-        return (array) $xml;
+        $array = json_decode(json_encode((array)($xml)), true);
+
+        return $array;
     }
 }

@@ -4,6 +4,12 @@ namespace App\Http\Resources\MasterDataFeed;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Class ListResource
+ * To be used in conjunction with the Master Data List Collection
+ * @package App\Http\Resources\MasterDataFeed
+ * mixin MasterDataFeed
+ */
 class ListResource extends JsonResource
 {
     /**

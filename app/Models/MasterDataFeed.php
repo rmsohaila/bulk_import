@@ -11,7 +11,8 @@ class MasterDataFeed extends Model
     use HasFactory;
 
     const ID = 'id';
-    const URL = "url";
+    const URL = "feed_url";
+    const FEED_ID = "feed_id";
     const IS_DOWNLOADED = "isDownloaded";
     const IS_PARSED = "isParsed";
     const LAST_FEED_ACCESS = "lastFeedAccess";
@@ -23,12 +24,7 @@ class MasterDataFeed extends Model
 
     protected $dateFormat = '';
 
-    protected $fillable = [
-        self::URL,
-        self::IS_DOWNLOADED,
-        self::IS_PARSED,
-        self::LAST_FEED_ACCESS
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         self::LAST_FEED_ACCESS => 'date',
@@ -43,6 +39,9 @@ class MasterDataFeed extends Model
      */
     public function products()
     {
-        return $this->hasMany(ProductDetailFeed::class, 'feed_id', 'id');
+        return $this->hasMany(
+            ProductDetailFeed::class,
+            ProductDetailFeed::FEED_ID
+        );
     }
 }

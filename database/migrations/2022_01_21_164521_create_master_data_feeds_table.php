@@ -18,6 +18,7 @@ class CreateMasterDataFeedsTable extends Migration
         Schema::create(DBTable::MASTER_FEEDS, function (Blueprint $table) {
             $table->bigIncrements(MasterDataFeed::ID);
             $table->string(MasterDataFeed::URL);
+            $table->string(MasterDataFeed::FEED_ID);
             $table->boolean(MasterDataFeed::IS_DOWNLOADED)->default(false)->nullable();
             $table->boolean(MasterDataFeed::IS_PARSED)->default(false)->nullable();
             $table->dateTime(MasterDataFeed::LAST_FEED_ACCESS)->nullable();

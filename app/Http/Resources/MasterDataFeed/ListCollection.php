@@ -4,6 +4,12 @@ namespace App\Http\Resources\MasterDataFeed;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
+/**
+ * Class ListCollection
+ * To be used in Master Feed Table Listing
+ * @package App\Http\Resources\MasterDataFeed
+ * @mixin MasterDataFeed\ListResource
+ */
 class ListCollection extends ResourceCollection
 {
     public $collects = 'App\Http\Resources\MasterDataFeed\ListResource';

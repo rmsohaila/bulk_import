@@ -11,7 +11,7 @@ class BaseConstant
     }
 
     /**
-     * Get constant class members
+     * Get list of class constant members
      */
     public function getConstants()
     {
