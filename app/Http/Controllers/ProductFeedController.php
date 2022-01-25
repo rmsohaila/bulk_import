@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductDetailFeed\CreateRequest;
 use App\Http\Requests\ProductDetailFeed\UpdateRequest;
-use App\Models\ProductFeed;
-use App\Http\Requests\UpdateProductFeedRequest;
+use App\Http\Resources\ProductDetailFeed\ListCollection;
+use App\Models\ProductDetailFeed;
+use App\Shared\APIResponse;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 
 class ProductFeedController extends Controller
 {
@@ -14,63 +18,44 @@ class ProductFeedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        abort_if(Gate::denies('product_list'), Response::HTTP_UNAUTHORIZED, trans('global.forbiden'));
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $products = ProductDetailFeed::query();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\CreateRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CreateRequest $request)
-    {
-        //
-    }
+        // Where Filters
+        $products->when(request('search'), function ($query, $searchToken) {
+            return $query->where(function ($query) use ($searchToken) {
+                $query->where('title', 'like', "%{$searchToken}%");
+            });
+        });
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ProductFeed  $productFeed
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        // Apply sorting if any
+        $products->when($request->has(['sort', 'order']), function ($query) {
+            switch (strtolower(request('sort'))) {
+                case 'brand':
+                    $sort = ProductDetailFeed::BRAND;
+                    break;
+                case 'createdAt':
+                    $sort = ProductDetailFeed::CREATED_AT;
+                    break;
+                case 'lastModified':
+                    $sort = ProductDetailFeed::UPDATED_AT;
+                    break;
+                default:
+                    $sort = request('sort');
+                    break;
+            }
+            return $query->orderBy($sort, request('order') ?? 'asc');
+        });
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateProductFeedRequest  $request
-     * @param  \App\Models\ProductFeed  $productFeed
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateRequest $request, $id)
-    {
-        //
-    }
+        // Apply paging if any
+        if ($request->hasAny(['page', 'size'])) {
+            $result = (new ListCollection($products->paginate($request->size ?? 10)))->withPaginate();
+            return APIResponse::json($result);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProductFeed  $productFeed
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return APIResponse::json(new ListCollection($products->get()));
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\MasterDataFeedController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResources([
-    'masterdatafeed' => MasterDataFeedController::class
-]);
+Route::middleware(['WriteToDatabaseMiddleware', 'throttle:500,1'])
+    ->get('products/{searchToken}', [ProductController::class, 'index']);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     // return $request->user();
