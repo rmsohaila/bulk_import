@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\ProductDetailFeed;
 
+use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
@@ -10,7 +11,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
  * @package App\Http\Resources\ProductDetailFeed
  * @mixin ProductDetailFeed\ListResource
  */
-class ListCollection extends ResourceCollection
+class ListCollection extends BaseResourceCollection
 {
     public $collects = 'App\Http\Resources\ProductDetailFeed\ListResource';
 

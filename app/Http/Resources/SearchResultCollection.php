@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class SearchResultCollection extends ResourceCollection
 {
+    public $collects = 'App\Http\Resources\SearchResultResource';
+
     /**
      * Transform the resource collection into an array.
      *
