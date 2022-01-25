@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['WriteToDatabaseMiddleware', 'throttle:500,1'])
+Route::middleware(['WriteToDatabaseMiddleware', 'throttle:1,60'])
     ->get('products/{searchToken}', [ProductController::class, 'index']);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
